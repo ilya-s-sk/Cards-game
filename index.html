@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cards Game</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="wrapper"> 
+        
+        <div class="scoreboard-container">
+            <h1 class="game-title">Cards game</h1>
+            <div class="scoreboard hidden">
+                <p class="counter-box">Counter: <span class="counter"></span></p>  
+                <p class="points-box">Points: <span class="points"></span></p>
+                <p class="game-time"><span class="minutes">00</span>:<span class="seconds">00</span></p>
+            </div>
+        </div>
+        
+
+        <div class="container">
+            <div class="settings-box hidden">
+                <p class="settings-text">Select parameters for game</p>
+                <div class="select-field-box select-box">
+                    <div class="select-field select-option" value="4">4</div>
+                    <div class="select-field select-option" value="8">8</div>
+                    <div class="select-field select-option" value="16">16</div>
+                </div>
+                <div class="select-timer-box select-box">
+                    <div class="turn-timer select-option">Turn timer</div>
+                    <div class="timer-select not-vis">
+                        <span class="timer-min">00</span>:<span class="timer-sec">30</span>
+                        <button class="timer-plus btn">+</button>
+                    </div>
+                </div>
+                <button class="start-game-btn not-vis btn">Start </button>
+            </div>
+        </div> 
+
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

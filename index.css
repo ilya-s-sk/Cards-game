@@ -1,0 +1,271 @@
+:root {
+    --main-color: #242582;
+    --second-color: #FFA44A; /* #2D2D99; */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 10px;
+}
+
+body {
+    background-color: var(--main-color);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 55%;
+    min-height: 280px;
+    margin: 120px auto; 
+    padding: 25px 50px; 
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-size: 2rem;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--second-color);
+    color: #fff;
+}
+.btn:hover{
+    cursor: pointer;
+}
+@media screen and (max-device-width: 760px){
+    .btn {
+        font-size: 3rem; 
+    }
+}
+
+/* settings */
+.settings-box {
+    width: 60%;
+    margin: 0 auto;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+@media screen and (max-device-width: 760px){
+    .settings-box {
+        width: 100%;
+        font-size: 6rem; 
+    }
+}
+.settings-text {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.select-box{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+.select-option {
+    padding: 5px 10px;
+    border: 3px solid transparent;
+    border-radius: 5px;
+}
+.select-option:hover{
+    cursor: pointer;
+}
+.selected {
+    border: 3px solid var(--second-color);;
+}
+.turn-timer {
+    margin-right: 20px;
+}
+.timer-select{
+    transition: opacity .2s;
+    display: flex;
+    align-items: center;
+}
+.timer-plus {
+    background-color: var(--second-color);;
+    padding: 2px 5px;
+    margin-left: 10px;
+}
+@media screen and (max-device-width: 760px){
+    .timer-plus {
+        font-size: 5rem; 
+    }
+}
+
+.start-game-btn {
+    transition: opacity 1s;
+}
+@media screen and (max-device-width: 760px){
+    .start-game-btn {
+        font-size: 5rem; 
+    }
+}
+
+/* scoreboard */
+.game-title {
+    color: #fff;
+    font-size: 4rem;
+    margin: 0 auto;
+}
+
+.scoreboard-container {
+    width: 100%;
+    /* height: 80px; */
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    background-color: var(--second-color); /* 0073a6 */
+    display: flex;
+    align-items: center;
+    border-radius: 0 0 50px 50px;
+    border-bottom: 5px solid #fff;
+}
+@media screen and (max-device-width: 760px){
+    .scoreboard-container {
+        flex-direction: column;
+    }
+}
+
+.scoreboard {
+    color: #fff;
+    font-size: 3rem;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: 0 auto;
+}
+
+@media screen and (max-device-width: 760px){
+    .scoreboard {
+        width: 80%;
+        font-size: 5rem; 
+    }
+}
+
+/* game */
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0.5vw;
+}
+
+@media screen and (max-device-width: 760px){
+    .container {
+        width: 85%;
+        margin: 200px auto;
+    }
+  .game-container {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2vw;
+        padding: 20px 50px;
+  }
+}
+
+.card-wrappper {
+    padding: 10px;
+}
+
+.card {
+    width: 70%;
+    height: 115px;
+    margin: auto;
+    border: black 1px solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    font-size: 20px;
+    
+    box-shadow: 0px 5px 45px rgba(0, 0, 0, 0.25), inset 0px -2.23121px 0px #000000, inset 0px 4.46241px 0px rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+
+    transition: background-color .2s;
+}
+
+.card-content {
+    font-size: 2em;
+    transition: color .2s;
+}
+
+@media screen and (max-device-width: 760px){
+  .card {
+    width: 90%;
+    height: 200px;
+  }
+
+  .card-content {
+      font-size: 4em;
+  }
+}
+
+.back-side {
+    background: #FFA44A;
+}
+
+.back-side span {
+    color: transparent
+}
+
+/* win */
+
+.end-container {
+    width: 60%;
+    margin: 0 auto;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.win-title {
+    color: var(--second-color);
+}
+.lose-title{
+    color:darkred;
+    margin-bottom: 30px;
+}
+.win-text {
+    font-weight: 400;
+}
+@media screen and (max-device-width: 760px){
+    .end-container {
+        width: 70%;
+        font-size: 3.5rem; 
+    }
+    .win-text{
+        font-size: 4rem;
+    }
+}
+
+
+
+.play-again-btn {
+    margin-top: 20px;
+}
+
+/* service classes */
+
+.unselectable {
+    user-select: none;  
+}
+
+.hidden {
+    display: none;
+}
+
+.not-vis {
+    opacity: 0;
+}
+.not-vis:hover{
+    cursor:default;
+}
