@@ -45,29 +45,44 @@ function initialization() {
 
     turnTimer = document.querySelector('.turn-timer'),
     selectTime = document.querySelector('.timer-select');
+    let timerMinutes, timerSeconds;
 
     turnTimer.addEventListener('click', () => {
-        turnTimer.classList.toggle('selected');
-        game.turnTimer = !game.turnTimer;
-        selectTime.classList.toggle('not-vis');
+        if (!game.turnTimer) {
+            game.turnTimer = true;
+            turnTimer.classList.add('selected');
+            selectTime.classList.remove('not-vis');
 
-        if (game.turnTimer) {
-            game.gameTime.seconds = 30;
-            document.querySelector('.timer-min').textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
-            document.querySelector('.timer-sec').textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
-        
-            let timerPlus = document.querySelector('.timer-plus');
-            timerPlus.addEventListener('click', () => {
-                game.gameTime.seconds += 30;
-                if (game.gameTime.seconds === 60) {
-                    game.gameTime.minutes += 1;
-                    game.gameTime.seconds = 0;
-                }
-                document.querySelector('.timer-min').textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
-                document.querySelector('.timer-sec').textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
-            })
+            timerMinutes = document.querySelector('.timer-min');
+            timerSeconds = document.querySelector('.timer-sec');
+
+            if (!game.gameTime.seconds) {
+                game.gameTime.seconds = 30;
+            }
+
+            timerMinutes.textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
+            timerSeconds.textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
+
+            
+        } else if (game.turnTimer) {
+            game.turnTimer = false;
+            turnTimer.classList.remove('selected');
+            selectTime.classList.add('not-vis'); 
+            game.gameTime.minutes = 0;
+            game.gameTime.seconds = 0;
         }
     })
+
+    let timerPlus = document.querySelector('.timer-plus');
+    timerPlus.addEventListener('click', () => {
+        game.gameTime.seconds += 30;
+            if (game.gameTime.seconds === 60) {
+                game.gameTime.minutes += 1;
+                game.gameTime.seconds = 0;
+            }
+            timerMinutes.textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
+            timerSeconds.textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
+        })
 
     startGameBtn.addEventListener('click', () => {
         if (!game.field) return;
