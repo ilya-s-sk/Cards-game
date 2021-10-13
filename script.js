@@ -3,6 +3,10 @@ let game = {}
 let cards,
     currentCards = [];
 
+function makeTimeStr(time) {
+    return time < 10 ? `0${time}` : time;
+}
+
 //settings and starting 
 let container, gameContainer, settingsBox, selectFieldInput, startGameBtn, turnTimer, selectTime;
 
@@ -56,33 +60,46 @@ function initialization() {
             timerMinutes = document.querySelector('.timer-min');
             timerSeconds = document.querySelector('.timer-sec');
 
-            if (!game.gameTime.seconds) {
+            if (!game.gameTime.seconds && !game.gameTime.minutes) {
                 game.gameTime.seconds = 30;
             }
 
-            timerMinutes.textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
-            timerSeconds.textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
-
-            
+            timerMinutes.textContent = makeTimeStr(game.gameTime.minutes);
+            timerSeconds.textContent = makeTimeStr(game.gameTime.seconds);
+      
         } else if (game.turnTimer) {
             game.turnTimer = false;
             turnTimer.classList.remove('selected');
             selectTime.classList.add('not-vis'); 
-            game.gameTime.minutes = 0;
-            game.gameTime.seconds = 0;
         }
     })
 
     let timerPlus = document.querySelector('.timer-plus');
     timerPlus.addEventListener('click', () => {
-        game.gameTime.seconds += 30;
-            if (game.gameTime.seconds === 60) {
-                game.gameTime.minutes += 1;
-                game.gameTime.seconds = 0;
-            }
-            timerMinutes.textContent = game.gameTime.minutes < 10 ? `0${game.gameTime.minutes}` : game.gameTime.minutes;
-            timerSeconds.textContent = game.gameTime.seconds < 10 ? `0${game.gameTime.seconds}` : game.gameTime.seconds;
-        })
+        
+        if (game.gameTime.seconds === 30) {
+            game.gameTime.minutes += 1;
+            game.gameTime.seconds = 0;
+        } else {
+            game.gameTime.seconds += 30;
+        }
+        timerMinutes.textContent = makeTimeStr(game.gameTime.minutes);
+        timerSeconds.textContent = makeTimeStr(game.gameTime.seconds);   
+    });
+
+    let timerMinus = document.querySelector('.timer-minus');
+    timerMinus.addEventListener('click', () => {
+        if (game.gameTime.minutes === 0 && game.gameTime.seconds === 30) {
+            return
+        } else if (game.gameTime.seconds === 0) {
+            game.gameTime.minutes -= 1;
+            game.gameTime.seconds = 30;   
+        } else {
+            game.gameTime.seconds -= 30;
+        }
+        timerMinutes.textContent = makeTimeStr(game.gameTime.minutes);
+        timerSeconds.textContent = makeTimeStr(game.gameTime.seconds);
+    })
 
     startGameBtn.addEventListener('click', () => {
         if (!game.field) return;
@@ -105,7 +122,12 @@ function initialization() {
 
         game.gameTime.func = game.turnTimer ? timerFunc : game.gameTime.func;
         game.gameTime.interval = setInterval(game.gameTime.func.bind(game.gameTime), 1000); 
-        if (game.turnTimer) game.timerStart = Date.now();
+
+        if (game.turnTimer) {
+            game.timerStart = Date.now();
+        }else if (!game.turnTimer) {
+            game.gameTime.minutes = 0; game.gameTime.seconds = 0;
+        }
     
         initialScoreboard();
         showOrHideScoreboard();
@@ -116,9 +138,10 @@ function initialization() {
 
 let secondsOutput, minutesOutput;
 
+//when the timer is off
 function countingTime() {
-    minutesOutput.textContent = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
-    secondsOutput.textContent = this.seconds < 10 ? `0${this.seconds}` : this.seconds;
+    minutesOutput.textContent = makeTimeStr(this.minutes);
+    secondsOutput.textContent = makeTimeStr(this.seconds);
 
     if (this.seconds === 59) {
         this.minutes++;
@@ -127,10 +150,10 @@ function countingTime() {
         this.seconds++;
     }
 }
-
+// when the timer is on
 function timerFunc() {
-    minutesOutput.textContent = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
-    secondsOutput.textContent = this.seconds < 10 ? `0${this.seconds}` : this.seconds;
+    minutesOutput.textContent = makeTimeStr(this.minutes);
+    secondsOutput.textContent = makeTimeStr(this.seconds);
 
     if (this.seconds === 0) {
         if (this.minutes === 0) {
@@ -152,8 +175,8 @@ function initialScoreboard() {
     scoreboard = document.querySelector('.scoreboard'),
     counterOutput = document.querySelector('.counter'),
     pointsOutput = document.querySelector('.points'),
-    secondsOutput = document.querySelector('.seconds'),
-    minutesOutput = document.querySelector('.minutes');
+    secondsOutput = document.querySelector('.game-time__seconds'),
+    minutesOutput = document.querySelector('.game-time__minutes');
 
     counterOutput.textContent = game.counter;
     pointsOutput.textContent = game.points;
@@ -200,6 +223,8 @@ function removeListeners (cards) {
     }); 
 }
 
+// handle user's actions with cards
+
 function handler (e) {
     const curCard = e.target.tagName === "SPAN" ? e.currentTarget : e.target; 
     
@@ -207,6 +232,7 @@ function handler (e) {
       
     currentCards[currentCards.length - 1].classList.remove('back-side');
 
+    // if user clicked on the same card
     if (currentCards[0] === currentCards[1]) {
         currentCards[0].classList.add('back-side');
         currentCards = [];
@@ -248,18 +274,17 @@ function handler (e) {
 function checkTheWin() {
     if (game.points === game.field) {
         gameContainer.remove();
-        //gameContainer.classList.add('hidden');
         let timeSec, timeMin;
         if (!game.turnTimer) {
             let {seconds, minutes} = game.gameTime;
-            timeSec = seconds < 10 ? `0${seconds}` : seconds;
-            timeMin = minutes < 10 ? `0${minutes}` : minutes;
+            timeSec = makeTimeStr(seconds)
+            timeMin = makeTimeStr(minutes)
         } else {
             let totalSeconds = (Date.now() - game.timerStart) / 1000;
             seconds = Math.floor(totalSeconds % 60);
             minutes = Math.floor(totalSeconds / 60);
-            timeSec = seconds < 10 ? `0${seconds}` : seconds;
-            timeMin = minutes < 10 ? `0${minutes}` : minutes;
+            timeSec = makeTimeStr(seconds)
+            timeMin = makeTimeStr(minutes)
         }
         
         container.innerHTML += `

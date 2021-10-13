@@ -7,21 +7,21 @@
 </head>
 <body>
     <div class="wrapper"> 
-        
-        <div class="scoreboard-container">
-            <h1 class="game-title">Cards game</h1>
+        <div class="header">
+            <h1 class="header__game-title">Cards game</h1>
             <div class="scoreboard hidden">
-                <p class="counter-box">Counter: <span class="counter"></span></p>  
-                <p class="points-box">Points: <span class="points"></span></p>
-                <p class="game-time"><span class="minutes">00</span>:<span class="seconds">00</span></p>
+                <p class="scoreboard__counter-box">Counter: <span class="counter"></span></p>  
+                <p class="scoreboard__points-box">Points: <span class="points"></span></p>
+                <p class="scoreboard__game-time">
+                    <span class="game-time__minutes">00</span>:<span class="game-time__seconds">00</span>
+                </p>
             </div>
         </div>
-        
-
         <div class="container">
             <div class="settings-box hidden">
                 <p class="settings-text">Select parameters for game</p>
                 <div class="select-field-box select-box">
+                    <p class="select-field-text">number of pairs</p>
                     <div class="select-field select-option" value="4">4</div>
                     <div class="select-field select-option" value="8">8</div>
                     <div class="select-field select-option" value="16">16</div>
@@ -30,16 +30,14 @@
                     <div class="turn-timer select-option">Turn timer</div>
                     <div class="timer-select not-vis">
                         <span class="timer-min">00</span>:<span class="timer-sec">30</span>
-                        <button class="timer-plus btn">+</button>
+                        <button class="timer-btn timer-plus btn">+</button>
+                        <button class="timer-btn timer-minus btn">-</button>
                     </div>
                 </div>
-                <button class="start-game-btn not-vis btn">Start </button>
+                <button class="start-game-btn not-vis btn">Start</button>
             </div>
-        </div> 
-
-        
+        </div>  
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
