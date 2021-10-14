@@ -10,6 +10,9 @@
 html {
     font-size: 10px;
 }
+html::-webkit-scrollbar {
+    width: 0;
+}
 
 body {
     background-color: var(--main-color);
@@ -18,10 +21,14 @@ body {
 
 .container {
     width: 60%;
-    margin: 120px auto 50px; 
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    margin: 110px auto 50px; 
     padding: 25px 50px; 
     border-radius: 10px;
     background-color: #fff;
+    transition: all .5s;
 }
 
 @media screen and (max-device-width: 760px){
@@ -161,7 +168,7 @@ body {
 /* game */
 .game-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     width: 70%;
     margin: 0 auto;
 }
